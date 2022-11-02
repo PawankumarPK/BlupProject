@@ -1,7 +1,6 @@
 
 import 'dart:ui';
 
-///------------------------- Rotation ---------------------------
 enum ItemType { Image, Text }
 
 class EditableItem {

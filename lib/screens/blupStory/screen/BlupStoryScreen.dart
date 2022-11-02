@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:screenshot/screenshot.dart';
 import '../../../res/ConstantColors.dart';
 import '../../../res/Dimens.dart';
-import '../../../utils/CustomObject.dart';
 import '../../../utils/EditableItem.dart';
 import '../../../utils/SizeConfig.dart';
 import '../widget/SaveImage.dart';
@@ -353,7 +352,6 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
               child: MaterialButton(
                   color: ConstantColors.secondaryColor,
                   onPressed: () {
-                    CustomObject.contentData = contentController.text;
                     Navigator.pop(context);
                     setState(() {});
                   },

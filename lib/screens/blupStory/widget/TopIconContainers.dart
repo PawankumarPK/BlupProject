@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class TopIconContainer extends StatelessWidget {
   final icon;
 
-  TopIconContainer({Key? key,this.icon}) : super(key: key);
+  const TopIconContainer({Key? key,this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
