@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:blup_task/res/ConstantString.dart';
 import 'package:blup_task/screens/blupStory/widget/CanvasDraw.dart';
+import 'package:blup_task/utils/CustomObject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math';
@@ -12,6 +13,10 @@ import '../../../utils/EditableItem.dart';
 import '../../../utils/SizeConfig.dart';
 import '../widget/SaveImage.dart';
 import '../widget/TopIconContainers.dart';
+import 'dart:math' as math;
+
+import 'YourCustomPaint.dart';
+
 
 class BlupStoryScreen extends StatefulWidget {
   const BlupStoryScreen({Key? key}) : super(key: key);
@@ -32,6 +37,17 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
   var isImageCapture = false;
   var isCanvasVisible = false;
 
+  final keyText = GlobalKey();
+  final keyTextForImage = GlobalKey();
+  late Offset position;
+  late Size size;
+  late Canvas canvas;
+  late Paint paint;
+  var paint1 = Paint();
+
+
+
+
   TextEditingController contentController = TextEditingController();
   ScreenshotController screenshotController = ScreenshotController();
 
@@ -48,6 +64,10 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
   void initState() {
     super.initState();
     controller.addListener(() => print('Value changed'));
+    //calculateSizeAndPosition();
+
+
+    //YourCustomPaint();
   }
 
   @override
@@ -128,6 +148,9 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
                   activeItem.position = Offset(left, top);
                   activeItem.rotation = details.rotation + currentRotation;
                   activeItem.scale = max(min(details.scale * currentScale, 3), 0.2);
+                  calculateSizeAndPosition();
+                  //calculateSizeAndPositionForImage();
+                  //_drawDashedLine(canvas,paint,position,position);
                 });
               },
               child: buildStory(),
@@ -158,20 +181,30 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
     Widget widget;
     switch (e.type) {
       case ItemType.Text:
-        widget =  Text(
+        widget =  Container(
+          width: 500,
+          height: 500,
+          child: CustomPaint(
+            painter: MyCustomPainter(),
+            child: const Center()
+    ),
+        );
+
+        /*Text(
           contentController.text,
           style: const TextStyle(color: Colors.black),
-        );
+        );*/
+
+
         break;
       case ItemType.Image:
         widget = Column(
           children: [
-            Visibility(
-                visible: isImageCapture == false ? true : false,
-                child:  Text(
-                  ConstantString.blupStoryEditorApp,
-                  style: TextStyle(fontSize: SizeConfig.defaultSize! * Dimens.size2),
-                )),
+            Text(
+              key: keyText,
+              ConstantString.blupStoryEditorApp,
+              style: TextStyle(fontSize: SizeConfig.defaultSize! * Dimens.size2),
+            ),
             isImageCapture == false ? Container() : showImage(file)
           ],
         );
@@ -218,6 +251,7 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
   Widget showImage(File file) {
     if (file != null) {
       return Image.file(
+        key: keyTextForImage,
         file,
         width: SizeConfig.defaultSize! * Dimens.size20,
         height: SizeConfig.defaultSize! * Dimens.size20,
@@ -367,4 +401,66 @@ class _BlupStoryScreenState extends State<BlupStoryScreen> {
 
     ));
   }
+
+  void calculateSizeAndPosition() =>
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+       // final RenderBox? box = keyText.currentContext?.findRenderObject();
+        final RenderBox box = keyText.currentContext!.findRenderObject() as RenderBox;
+
+        setState(() {
+          position = box.localToGlobal(Offset.zero);
+          size = box.size;
+
+          CustomObject.x = position.dx;
+          CustomObject.y = position.dy;
+
+          print("====>> Positon" + 'X: ${position.dx.toInt()} +     Y: ${position.dy.toInt()}');
+
+          CustomPaint(
+              painter: MyCustomPainter(),
+              child: Center()
+          );
+
+        });
+      });
+
+
+  /*void calculateSizeAndPositionForImage() =>
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // final RenderBox? box = keyText.currentContext?.findRenderObject();
+        final RenderBox box = keyTextForImage.currentContext!.findRenderObject() as RenderBox;
+
+        setState(() {
+          position = box.localToGlobal(Offset.zero);
+          size = box.size;
+
+          print("====>> ImagePositon" + 'X: ${position.dx.toInt()} +     Y: ${position.dy.toInt()}');
+
+        });
+      });*/
+
+
+
+  /*void _drawDashedLine(Canvas canvas, Paint paint, Offset p1, Offset p2,) {
+    const int dashWidth = 5;
+    const int dashSpace = 5;
+
+    final dX = p2.dx - p1.dx;
+    final dY = p2.dy - p1.dy;
+    final angle = math.atan2(dY, dX);
+    final totalLength = math.sqrt(math.pow(dX, 2) + math.pow(dY, 2));
+
+    double drawnLength = 0.0;
+    final cos = math.cos(angle);
+    final sin = math.sin(angle);
+
+    while (drawnLength < totalLength) {
+      canvas.drawLine(
+          Offset(p1.dx + cos * drawnLength, p1.dy + sin * drawnLength),
+          Offset(p1.dx + cos * (drawnLength + dashWidth), p1.dy + sin * (drawnLength + dashWidth)), paint);
+
+      drawnLength += dashWidth + dashSpace;
+    }
+  }*/
 }

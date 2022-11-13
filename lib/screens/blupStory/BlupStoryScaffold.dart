@@ -1,4 +1,5 @@
 import 'package:blup_task/screens/blupStory/screen/BlupStoryScreen.dart';
+import 'package:blup_task/screens/blupStory/screen/CanvasDrawLine.dart';
 import 'package:blup_task/screens/blupStory/screen/GuidelineScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class BlupStoryScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return  Scaffold(
-      body: GuidelineScreen(),
+      body: CanvasDrawLine(),
     );
   }
 }
