@@ -104,10 +104,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               currentRotation = activeItem.rotation;
               isCanvasLineVisibleForHelloWord = true;
             },
+
             onScaleEnd: (detail) {
               isCanvasLineVisibleForHelloWord = false;
               setState(() {});
             },
+
             onScaleUpdate: (details) {
               if (activeItem == null) {
                 return;
@@ -191,13 +193,15 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       },
                       child: Container(
                         color: ConstantColors.textWhiteColor,
-                        width: SizeConfig.defaultSize! * Dimens.size10Point5,
-                        height: SizeConfig.defaultSize! * Dimens.size2,
-                        child: Text(
-                          key: keyTextHelloWorld,
-                          "Hello World",
-                          style: TextStyle(
-                              fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                        width: SizeConfig.defaultSize! * Dimens.size11,
+                        height: SizeConfig.defaultSize! * Dimens.size2Point5,
+                        child: Center(
+                          child: Text(
+                            key: keyTextHelloWorld,
+                            "Hello World",
+                            style: TextStyle(
+                                fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                          ),
                         ),
                       ),
                     ),
@@ -210,15 +214,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                           : true,
                       child: Row(
                         children: [
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left: SizeConfig.defaultSize! * Dimens.size1),
-                              child: Text(
-                                CustomObject.x.toStringAsFixed(1),
-                                style: TextStyle(
-                                    color: ConstantColors.primaryColor,
-                                    fontSize: 15),
-                              )),
+                          Text(
+                            CustomObject.x.toStringAsFixed(1),
+                            style: TextStyle(
+                                color: ConstantColors.primaryColor,
+                                fontSize: 15),
+                          ),
                           SizedBox(
                             width: SizeConfig.defaultSize! * Dimens.size26,
                             height: 1.0,
@@ -240,15 +241,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       isCanvasLineVisibleForHelloWord == false ? false : true,
                   child: Column(
                     children: [
-                      Padding(
-                          padding: EdgeInsets.only(
-                              right: SizeConfig.defaultSize! * Dimens.size1),
-                          child: Text(
-                            CustomObject.x.toStringAsFixed(1),
-                            style: TextStyle(
-                                color: ConstantColors.primaryColor,
-                                fontSize: 15),
-                          )),
+                      Text(
+                        CustomObject.x.toStringAsFixed(1),
+                        style: TextStyle(
+                            color: ConstantColors.primaryColor,
+                            fontSize: 15),
+                      ),
                       SizedBox(
                         width: 1.0,
                         height: SizeConfig.screenHeight! * 1,
@@ -267,6 +265,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
       ///--------------- Blup story section -------------
       case ItemType.Image:
         widget = GestureDetector(
+
             onScaleStart: (details) {
               if (activeItem == null) return;
               initPos = details.focalPoint;
@@ -287,11 +286,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               final left = (delta.dx / screen.width) + currentPos.dx;
               final top = (delta.dy / screen.height) + currentPos.dy;
 
+              print("---->>DELTA  " + delta.dx.toString());
+
               setState(() {
                 activeItem.position = Offset(left, top);
                 activeItem.rotation = details.rotation + currentRotation;
-                activeItem.scale =
-                    max(min(details.scale * currentScale, 3), 0.2);
+                activeItem.scale = max(min(details.scale * currentScale, 3), 0.2);
 
                 calculateSizeAndPositionForBlupText();
               });
@@ -338,14 +338,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                                   color: ConstantColors.pinkColor),
                             ),
                           ),
-                          Padding(
-                              padding: EdgeInsets.only(right: SizeConfig.defaultSize! * Dimens.size1),
-                              child: Text(
-                                CustomObject.x.toStringAsFixed(1),
-                                style: TextStyle(
-                                    color: ConstantColors.primaryColor,
-                                    fontSize: 15),
-                              )),
+                          Text(
+                            CustomObject.x.toStringAsFixed(1),
+                            style: TextStyle(
+                                color: ConstantColors.primaryColor,
+                                fontSize: 15),
+                          ),
                         ],
                       ),
                     ),
@@ -355,14 +353,16 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         isCanvasLineVisible = true,
                       },
                       child: Container(
-                        width: SizeConfig.defaultSize! * Dimens.size20,
+                        width: SizeConfig.defaultSize! * Dimens.size22,
                         height: SizeConfig.defaultSize! * Dimens.size2Point5,
                         color: ConstantColors.textWhiteColor,
-                        child: Text(
-                          key: keyTextForImage,
-                          "Blup Story Editor App",
-                          style: TextStyle(
-                              fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                        child: Center(
+                          child: Text(
+                            key: keyTextForImage,
+                            "Blup Story Editor App",
+                            style: TextStyle(
+                                fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                          ),
                         ),
                       ),
                     ),
@@ -373,15 +373,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       visible: isCanvasLineVisible == false ? false : true,
                       child: Row(
                         children: [
-                          Padding(
-                              padding: EdgeInsets.only(
-                                  left: SizeConfig.defaultSize! * Dimens.size1),
-                              child: Text(
-                                CustomObject.x.toStringAsFixed(1),
-                                style: TextStyle(
-                                    color: ConstantColors.primaryColor,
-                                    fontSize: 15),
-                              )),
+                          Text(
+                            CustomObject.x.toStringAsFixed(1),
+                            style: TextStyle(
+                                color: ConstantColors.primaryColor,
+                                fontSize: 15),
+                          ),
                           SizedBox(
                             width: SizeConfig.defaultSize! * Dimens.size26,
                             height: 1.0,
@@ -475,6 +472,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
 
           CustomObject.x = position.dx;
           CustomObject.y = position.dy;
+
+          CustomObject.demoX = position.dx;
+          CustomObject.demoY = position.dy;
+
+          print("=<<<<>>>>>>  " + CustomObject.demoX.toString());
+
 
           // print("====>> ImagePositon" + 'X: ${position.dx.toInt()} +     Y: ${position.dy.toInt()}');
         });
