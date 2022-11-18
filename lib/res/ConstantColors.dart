@@ -8,6 +8,7 @@ class ConstantColors{
   static var topIconBgColor = Color(0xFFe0f2f1);
   static var greyColor = Color(0xff7d8080);
   static var pinkColor = Color(0xff8648ec);
+  static var blackColor = Color(0xff000000);
 
 
 

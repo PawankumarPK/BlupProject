@@ -20,6 +20,7 @@ class Dimens {
   static int size22 = 22;
   static int size26 = 26;
   static int size36 = 36;
+  static int size50 = 50;
   static int size600 = 600;
 
 }
