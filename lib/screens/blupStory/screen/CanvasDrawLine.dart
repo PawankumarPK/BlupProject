@@ -44,7 +44,10 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
 
   var isReachedFromBelow = false;
   var isReachedFromAbove = false;
+  var isReachedFromRight = false;
+  var isReachedFromLeft = false;
   var isContainerVisible = false;
+  var isContainerBottomVisible = false;
 
   var helloHeight = SizeConfig.defaultSize! * Dimens.size50;
 
@@ -130,6 +133,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                 activeItem.rotation = details.rotation + currentRotation;
                 activeItem.scale = max(min(details.scale * currentScale, 3), 0.2);
                 //isContainerVisible = false;
+                isContainerBottomVisible = false;
                 calculateSizeAndPositionForHelloText();
               });
             },
@@ -184,23 +188,10 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         ],
                       ),
                     ),
+
+                    ///----------- hello world top line conditions ---------
                     Column(
                       children: [
-                        /*Visibility(
-                          maintainSize: true,
-                          maintainAnimation: true,
-                          maintainState: true,
-                          visible: isContainerVisible==true?true:false,
-                          child: Container(
-                            //color: ConstantColors.greyColor,
-                            //color: isContainerVisible == true?ConstantColors.textWhiteColor:Colors.redAccent.withOpacity(0.0),
-                            //color: isContainerVisible == true?ConstantColors.greyColor:ConstantColors.textWhiteColor,
-                            color: ConstantColors.greyColor,
-                            width: 120,
-                            height: 200,
-                          ),
-                        ),*/
-
                         isContainerVisible == false?
                         Visibility(
                           maintainSize: true,
@@ -215,7 +206,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               width: 1.0,
                               height: 180,
                               child: DecoratedBox(
-                                decoration: BoxDecoration(color: ConstantColors.pinkColor),
+                                decoration: BoxDecoration(color: ConstantColors.blackColor),
                               ),
                       ),
                               Text(
@@ -281,24 +272,51 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                   maintainSize: true,
                   maintainAnimation: true,
                   maintainState: true,
-                  visible:
-                      isCanvasLineVisibleForHelloWord == false ? false : true,
+                  visible: isCanvasLineVisibleForHelloWord == false ? false : true,
                   child: Column(
                     children: [
+
+                      ///----------- hello world bottom line -------
+                      isContainerBottomVisible == false?
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 2.0,
+                            height: 180,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(color: ConstantColors.primaryColor),
+                            ),
+                          ),
+                          Text(
+                            CustomObject.y.toStringAsFixed(1),
+                            style: TextStyle(
+                                color: ConstantColors.primaryColor,
+                                fontSize: 15),
+                          ),
+                        ],
+                      ): SizedBox(
+                        width: 120,
+                        height: 200,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: ConstantColors.secondaryColor),
+                        ),
+                      ),
                       Text(
-                        CustomObject.x.toStringAsFixed(1),
+                        CustomObject.y.toStringAsFixed(1),
                         style: TextStyle(
                             color: ConstantColors.primaryColor,
                             fontSize: 15),
                       ),
                       SizedBox(
                         width: 1.0,
-                        height: SizeConfig.screenHeight! * 1,
+                        height: SizeConfig.defaultSize! * Dimens.size36,
                         child: DecoratedBox(
                           decoration:
                               BoxDecoration(color: ConstantColors.pinkColor),
                         ),
                       ),
+
+
                     ],
                   ),
                 ),
@@ -321,6 +339,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
             onScaleEnd: (detail) {
               isCanvasLineVisible = false;
               isContainerVisible = false;
+              //isContainerBottomVisible = false;
               setState(() {});
             },
             onScaleUpdate: (details) {
@@ -336,6 +355,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                 activeItem.rotation = details.rotation + currentRotation;
                 activeItem.scale = max(min(details.scale * currentScale, 3), 0.2);
 
+                isContainerBottomVisible = true;
                 calculateSizeAndPositionForBlupText();
               });
             },
@@ -354,7 +374,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                           Visibility(
                             visible: isReachedFromBelow == true?true:false,
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 30),
+                              padding: const EdgeInsets.only(right: 45),
                               child: SizedBox(
                                 width: 1.0,
                                 height: helloHeight,
@@ -365,28 +385,31 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               ),
                             ),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 1.0,
-                                height: helloHeight,
-                                child: DecoratedBox(
-                                  decoration:
-                                      BoxDecoration(color: ConstantColors.pinkColor),
+                          Visibility(
+                            visible: isReachedFromBelow == true?false:true,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: 1.0,
+                                  height: helloHeight,
+                                  child: DecoratedBox(
+                                    decoration:
+                                        BoxDecoration(color: ConstantColors.pinkColor),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                CustomObject.posY.toStringAsFixed(0),
-                                style: TextStyle(
-                                    color: ConstantColors.primaryColor, fontSize: 15),
-                              ),
-                            ],
+                                Text(
+                                  CustomObject.posY.toStringAsFixed(0),
+                                  style: TextStyle(
+                                      color: ConstantColors.primaryColor, fontSize: 15),
+                                ),
+                              ],
+                            ),
                           ),
 
                           Visibility(
                             visible: isReachedFromBelow == true?true:false,
                             child: Padding(
-                              padding: EdgeInsets.only(left: 30),
+                              padding: EdgeInsets.only(left: 50),
                               child: SizedBox(
                                 width: 1.0,
                                 height: helloHeight,
@@ -412,13 +435,50 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       visible: isCanvasLineVisible == false ? false : true,
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: SizeConfig.defaultSize! * Dimens.size26,
-                            height: 1.0,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: ConstantColors.pinkColor),
-                            ),
+                          Column(
+                            children: [
+                              Visibility(
+                                visible: isReachedFromRight==true?true:false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: SizedBox(
+                                    width: SizeConfig.defaultSize! * Dimens.size26,
+                                    height: 1.0,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: ConstantColors.blackColor),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: isReachedFromRight==true?false:true,
+
+                                child: SizedBox(
+                                  width: SizeConfig.defaultSize! * Dimens.size26,
+                                  height: 1.0,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        color: ConstantColors.pinkColor),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                visible: isReachedFromRight==true?true:false,
+                                child: Padding(
+                                  padding: EdgeInsets.only(top:5),
+
+                                  child: SizedBox(
+                                    width: SizeConfig.defaultSize! * Dimens.size26,
+                                    height: 1.0,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: ConstantColors.blackColor),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Text(
                             CustomObject.posX.toStringAsFixed(0),
@@ -456,13 +516,51 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                                 color: ConstantColors.primaryColor,
                                 fontSize: 15),
                           ),
-                          SizedBox(
-                            width: SizeConfig.defaultSize! * Dimens.size26,
-                            height: 1.0,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: ConstantColors.pinkColor),
-                            ),
+                          Column(
+                            children: [
+
+                              Visibility(
+                                visible: isReachedFromLeft==true?true:false,
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 5),
+                                  child: SizedBox(
+                                    width: 180,
+                                    height: 1.0,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: ConstantColors.blackColor),
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              Visibility(
+                                visible: isReachedFromLeft==true?false:true,
+                                child: SizedBox(
+                                  width: SizeConfig.defaultSize! * Dimens.size26,
+                                  height: 1.0,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        color: ConstantColors.primaryColor),
+                                  ),
+                                ),
+                              ),
+
+                              Visibility(
+                                visible: isReachedFromLeft==true?true:false,
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: SizedBox(
+                                    width: 180,
+                                    height: 1.0,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: ConstantColors.blackColor),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -479,7 +577,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       Visibility(
                         visible: isReachedFromAbove == true?true:false,
                         child: Padding(
-                          padding: EdgeInsets.only(right: 30),
+                          padding: EdgeInsets.only(right: 55),
                           child: SizedBox(
                             width: 1.0,
                             height: SizeConfig.defaultSize! * Dimens.size36,
@@ -491,23 +589,26 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         ),
                       ),
 
-                      Column(
-                        children: [
-                          Text(
-                            CustomObject.posY.toStringAsFixed(0),
-                            style: TextStyle(
-                                color: ConstantColors.primaryColor, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 1.0,
-                            height: SizeConfig.defaultSize! * Dimens.size36,
-                            child: DecoratedBox(
-                              decoration:
-                              BoxDecoration(color: ConstantColors.pinkColor),
+                      Visibility(
+                        visible: isReachedFromAbove == true?false:true,
+                        child: Column(
+                          children: [
+                            Text(
+                              CustomObject.posY.toStringAsFixed(0),
+                              style: TextStyle(
+                                  color: ConstantColors.primaryColor, fontSize: 15),
                             ),
-                          ),
+                            SizedBox(
+                              width: 1.0,
+                              height: SizeConfig.defaultSize! * Dimens.size36,
+                              child: DecoratedBox(
+                                decoration:
+                                BoxDecoration(color: ConstantColors.pinkColor),
+                              ),
+                            ),
 
-                        ],
+                          ],
+                        ),
                       ),
 
                       Visibility(
@@ -577,21 +678,45 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
           }else{
             isReachedFromBelow = false;
             isContainerVisible =false;
-
           }
 
           if(CustomObject.posY == CustomObject.y &&
              CustomObject.posY == CustomObject.y - 200 ||
              CustomObject.posY <= CustomObject.y &&
              CustomObject.posX == CustomObject.x){
-            print("====>>>REACHED");
             isReachedFromAbove = true;
+            isContainerBottomVisible = true;
           }else{
             isReachedFromAbove = false;
           }
 
 
-          print("----*** POSY:  " + CustomObject.posY.toString() + " " + "CUSTOM Y:  " + CustomObject.y.toString());
+          ///---------------- Right ----------------
+          if(CustomObject.posX == CustomObject.x &&
+              CustomObject.posX == CustomObject.x + 200 ||
+              CustomObject.posX >= CustomObject.x &&
+              CustomObject.posY == CustomObject.y){
+            print("====>>>REACHED");
+            isReachedFromRight = true;
+           // isContainerBottomVisible = true;
+          }else{
+            isReachedFromRight = false;
+          }
+
+          ///---------------- Left ----------------
+          if(CustomObject.posX == CustomObject.x &&
+              CustomObject.posX == CustomObject.x - 200 ||
+              CustomObject.posX <= CustomObject.x &&
+              CustomObject.posY == CustomObject.y){
+            print("====>>>REACHED");
+            isReachedFromLeft = true;
+            // isContainerBottomVisible = true;
+          }else{
+            isReachedFromLeft = false;
+          }
+
+
+          print("----*** POSX:  " + CustomObject.posX.toString() + " " + "CUSTOM X:  " + CustomObject.x.toString());
         });
       });
 
