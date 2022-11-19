@@ -47,10 +47,10 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
   var isReachedFromRight = false;
   var isReachedFromLeft = false;
 
-  var isReachedHintTwoFromBelow = false;
-  var isReachedHintTwoFromAbove = false;
-  var isReachedHintTwoFromRight = false;
-  var isReachedHintTwoFromLeft = false;
+  var isReachedHintBelow = false;
+  var isReachedHintAbove = false;
+  var isReachedHintRight = false;
+  var isReachedHintLeft = false;
 
   var isContainerVisible = false;
   var isContainerBottomVisible = false;
@@ -152,10 +152,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                   maintainState: true,
                   visible: isCanvasLineVisibleForHelloWord == false ? false : true,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Visibility(
-                        visible: isReachedHintTwoFromBelow == true?true:false,
+                        visible: isReachedHintBelow == true?true:false,
                         child: Column(
                           children: [
                             SizedBox(
@@ -180,7 +179,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         maintainSize: true,
                         maintainAnimation: true,
                         maintainState: true,
-                        visible: isReachedHintTwoFromBelow == true?false:true,
+                        visible: isReachedHintBelow == true?false:true,
                         child: Column(
                           children: [
                             Padding(
@@ -195,7 +194,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               ),
                             ),
                             Text(
-                              CustomObject.y.toStringAsFixed(1),
+                              CustomObject.y.toStringAsFixed(0),
                               style: TextStyle(
                                   color: ConstantColors.primaryColor,
                                   fontSize: 15),
@@ -205,8 +204,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       ),
 
                       Visibility(
-                        visible: isReachedHintTwoFromBelow == true?true:false,
-
+                        visible: isReachedHintBelow == true?true:false,
                         child: Column(
                           children: [
                             SizedBox(
@@ -249,28 +247,25 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                             maintainSize: true,
                             maintainAnimation: true,
                             maintainState: true,
-                            visible: isReachedHintTwoFromLeft == true ? true : false,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 50),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                    width: SizeConfig.defaultSize! * Dimens.size26,
-                                    height: 1.0,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                          color: ConstantColors.greenColor),
-                                    ),
+                            visible: isReachedHintLeft == true ? true : false,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: SizeConfig.defaultSize! * Dimens.size26,
+                                  height: 1.0,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        color: ConstantColors.greenColor),
                                   ),
-                                  Text(
-                                    (CustomObject.x - CustomObject.posX).toStringAsFixed(0),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: ConstantColors.greenColor,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  (CustomObject.x - CustomObject.posX).toStringAsFixed(0),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: ConstantColors.greenColor,
+                                      fontSize: 12),
+                                ),
+                              ],
                             ),
                           ),
 
@@ -278,9 +273,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                             maintainSize: true,
                             maintainAnimation: true,
                             maintainState: true,
-                            visible: isReachedHintTwoFromLeft == true ? false : true,
+                            visible: isReachedHintLeft == true ? false : true,
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: 10),
+                              padding: EdgeInsets.only(bottom: 10,right: 10),
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -302,9 +297,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                             ),
                           ),
                           Visibility(
-                            visible: isReachedHintTwoFromLeft == true ? true : false,
+                            visible: isReachedHintLeft == true ? true : false,
                             child: Padding(
-                              padding: EdgeInsets.only(left: 50),
+                              padding: EdgeInsets.only(left: 20),
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -315,14 +310,6 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                                           color: ConstantColors.greenColor),
                                     ),
                                   ),
-
-                                 /* Text(
-                                    (CustomObject.x - CustomObject.posX).toStringAsFixed(0),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: ConstantColors.greenColor,
-                                        fontSize: 12),
-                                  ),*/
                                 ],
                               ),
                             ),
@@ -351,9 +338,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         children: [
 
                           Visibility(
-                          visible: isReachedHintTwoFromRight == true?true:false,
+                          visible: isReachedHintRight == true?true:false,
                           child: Padding(
-                            padding: EdgeInsets.only(right: 30),
+                            padding: EdgeInsets.only(right: 10),
                             child: Row(
                               children: [
                                  Text(
@@ -380,7 +367,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                             maintainSize: true,
                             maintainAnimation: true,
                             maintainState: true,
-                            visible: isReachedHintTwoFromRight == true?false:true,
+                            visible: isReachedHintRight == true?false:true,
 
                             child: Padding(
                               padding: EdgeInsets.only(left: 10),
@@ -407,9 +394,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                           ),
 
                           Visibility(
-                            visible: isReachedHintTwoFromRight == true?true:false,
+                            visible: isReachedHintRight == true?true:false,
                             child: Padding(
-                              padding: EdgeInsets.only(right: 50),
+                              padding: EdgeInsets.only(right: 20),
                               child: SizedBox(
                                 width: SizeConfig.defaultSize! * Dimens.size26,
                                 height: 1.0,
@@ -437,7 +424,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                     children: [
 
                       Visibility(
-                        visible: isReachedHintTwoFromAbove == true?true:false,
+                        visible: isReachedHintAbove == true?true:false,
                         child: Padding(
                           padding: EdgeInsets.only(right: 40),
                           child: Column(
@@ -463,7 +450,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
 
 
                       Visibility(
-                        visible: isReachedHintTwoFromAbove == true?false:true,
+                        visible: isReachedHintAbove == true?false:true,
 
                         child: Column(
                           children: [
@@ -486,7 +473,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                       ),
 
                       Visibility(
-                        visible: isReachedHintTwoFromAbove == true?true:false,
+                        visible: isReachedHintAbove == true?true:false,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 50),
                           child: Column(
@@ -661,7 +648,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               Visibility(
                                 visible: isReachedFromRight==true?true:false,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5,right: 10),
+                                  padding: const EdgeInsets.only(bottom: 20,right: 10),
                                   child: Row(
                                     children: [
                                       SizedBox(
@@ -684,9 +671,12 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                                 ),
                               ),
                               Visibility(
+                               /* maintainSize: true,
+                                maintainAnimation: true,
+                                maintainState: true,*/
                                 visible: isReachedFromRight==true?false:true,
                                 child: Padding(
-                                  padding: EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.only(right: 5,bottom: 0),
                                   child: Row(
                                     children: [
                                       SizedBox(
@@ -711,8 +701,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               Visibility(
                                 visible: isReachedFromRight==true?true:false,
                                 child: Padding(
-                                  padding: EdgeInsets.only(top:5),
-
+                                  padding: const EdgeInsets.only(top: 0),
                                   child: SizedBox(
                                     width: SizeConfig.defaultSize! * Dimens.size26,
                                     height: 1.0,
@@ -729,12 +718,15 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                         ],
                       ),
                     ),
-                    Text(
-                      key: keyTextForImage,
-                      "Hello World",
-                      style: TextStyle(
-                        color: ConstantColors.secondaryColor,
-                          fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        key: keyTextForImage,
+                        "Hello World",
+                        style: TextStyle(
+                          color: ConstantColors.secondaryColor,
+                            fontSize: SizeConfig.defaultSize! * Dimens.size2),
+                      ),
                     ),
                     Visibility(
                       maintainSize: true,
@@ -749,7 +741,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               Visibility(
                                 visible: isReachedFromLeft==true?true:false,
                                 child: Padding(
-                                  padding: EdgeInsets.only(bottom: 5,left: 10),
+                                  padding: EdgeInsets.only(bottom: 15,left: 10),
                                   child: Row(
                                     children: [
                                       Text(
@@ -803,7 +795,7 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
                               Visibility(
                                 visible: isReachedFromLeft==true?true:false,
                                 child: Padding(
-                                  padding: EdgeInsets.only(top: 5),
+                                  padding: EdgeInsets.only(top: 0),
                                   child: SizedBox(
                                     width: 180,
                                     height: 1.0,
@@ -1014,11 +1006,11 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               CustomObject.y == CustomObject.posY + 200 ||
               CustomObject.y >= CustomObject.posY &&
               CustomObject.x == CustomObject.posX){
-            isReachedHintTwoFromBelow = true;
+            isReachedHintBelow = true;
             //helloHeight = SizeConfig.defaultSize! * Dimens.size50 - CustomObject.posX;
             isContainerVisible =true;
           }else{
-            isReachedHintTwoFromBelow = false;
+            isReachedHintBelow = false;
             isContainerVisible =false;
           }
 
@@ -1027,10 +1019,10 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               CustomObject.y == CustomObject.posY - 200 ||
               CustomObject.y <= CustomObject.posY &&
               CustomObject.x == CustomObject.posX){
-            isReachedHintTwoFromAbove = true;
+            isReachedHintAbove = true;
            // isContainerBottomVisible = true;
           }else{
-            isReachedHintTwoFromAbove = false;
+            isReachedHintAbove = false;
           }
 
           ///---------------- Left ----------------
@@ -1038,9 +1030,9 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               CustomObject.posX == CustomObject.x - 200 ||
               CustomObject.posX <= CustomObject.x &&
               CustomObject.posY == CustomObject.y){
-            isReachedHintTwoFromLeft = true;
+            isReachedHintLeft = true;
           }else{
-            isReachedHintTwoFromLeft = false;
+            isReachedHintLeft = false;
           }
 
 
@@ -1050,10 +1042,10 @@ class _CanvasDrawLineState extends State<CanvasDrawLine> {
               CustomObject.posX >= CustomObject.x &&
                   CustomObject.posY == CustomObject.y){
             print("====>>>REACHED");
-            isReachedHintTwoFromRight = true;
+            isReachedHintRight = true;
             // isContainerBottomVisible = true;
           }else{
-            isReachedHintTwoFromRight = false;
+            isReachedHintRight = false;
           }
 
           print("----*** POSX:  " + CustomObject.posX.toString() + " " + "CUSTOM X:  " + CustomObject.x.toString());
